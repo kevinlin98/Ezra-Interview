@@ -1,0 +1,14 @@
+{
+  "name": "ezra-interview",
+  "version": "1.0.0",
+  "description": "Take home assessment for senior QA position",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.1"
+  }
+}
