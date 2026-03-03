@@ -45,6 +45,9 @@ This framework is built using the **Page Object Model (POM)** design pattern to 
   * `test-data.ts`: A centralized repository for all test data, user credentials, and Stripe testing cards. If a different test account is needed, it can be updated here.
   * `helpers.ts`: Contains reusable session functions, such as the `loginUser` method.
 * **`/tests`**: The actual spec files (`booking-flow.spec.ts`, `paymentdeclines.spec.ts`). Because of the POM setup, these files read like plain English and contain zero hardcoded locators.
+* **`node_modules/`**: Contains all the project's physical dependencies (Playwright, TypeScript, etc.) defined in `package.json`. This folder is created automatically when running `npm install`.
+* **`playwright-report/`**: After a test run finishes, Playwright generates a self-contained HTML dashboard here. It provides a visual breakdown of test passes/fails, including video recordings and step-by-step traces.
+* **`test-results/`**: This directory acts as a workspace for Playwright during execution. It stores temporary artifacts like screenshots of failed steps and raw trace files used to generate the final report.
 
 
 ## Assumptions
