@@ -15,7 +15,7 @@ Below are the 15 most important test cases for the first three steps of the book
 10. **Session/Hold Timeout Recovery:** User selects a time slot but idles on the payment page beyond the maximum reservation hold time; the system gracefully times out, releases the slot back to the public pool, and prompts the user to refresh/sign in to their session.
 11. **Form Accessibility & Screen Reader Compliance:** A user relying solely on keyboard navigation and a screen reader can successfully navigate scan selections, pick a time slot, fill out checkout fields, and submit payment without encountering focus traps or missing ARIA labels.
 12. **Invalid/Expired Promo Code Handling:** User attempts to apply a fake, expired, or non-applicable promo code; the system rejects it with an explicit warning and the original price remains unchanged.
-13. **Save Link Card: Once a user saves a card with Link, their card details are correctly remembered when they return to the checkout page in the future, allowing for easy card selection during checkout.
+13. **Save Link Card:** Once a user saves a card with Link, their card details are correctly remembered when they return to the checkout page in the future, allowing for easy card selection during checkout.
 14. **Payment Idempotency:** Simulate a slow network connection and verify that if a user clicks the "Continue" (submit payment) button multiple times rapidly, the backend relies on a Stripe idempotency key to ensure only one charge is processed and only one appointment is created.
 15. **Bank Transfer (ACH) Workflow:** User selects the "Bank" payment method to claim the "$5 back" offer; the system successfully initiates the bank login workflow and applies the proper discount to the total.
 
@@ -27,7 +27,7 @@ Below are the 15 most important test cases for the first three steps of the book
 
 
 # Question 2
-we can see that the application relies heavily on an encounterId (a UUID like 74648af2-d3a5-4f86-977a-f1b5a9421c71) passed directly in the URL query string within a JSON object. Passing direct object references (like an encounter ID) to the client makes the application an immediate target for an Insecure Direct Object Reference (IDOR) vulnerability if the backend does not rigorously enforce authorization checks on that specific ID. This is a serious security concern and is often at the top of the OWASP API Security Top 10 list.
+we can see that the application relies heavily on an encounterId (a UUID like `74648af2-d3a5-4f86-977a-f1b5a9421c71`) passed directly in the URL query string within a JSON object. Passing direct object references (like an encounter ID) to the client makes the application an immediate target for an Insecure Direct Object Reference (IDOR) vulnerability if the backend does not rigorously enforce authorization checks on that specific ID. This is a serious security concern and is often at the top of the OWASP API Security Top 10 list.
 
 ## Part 1: Integration Test Case (Encounter IDOR Prevention)
 ### Test Case Name: 
@@ -59,7 +59,9 @@ Authorization: Bearer <User_A_Valid_JWT>
 Accept: application/json
 ```
 
-2. The Exploit Request (User A attempting to fetch User B's encounter data - Expected 403/404) noticed the encounter id is different:
+2. The Exploit Request (User A attempting to fetch User B's encounter data - Expected 403/404)
+
+note that the encounter id is different:
 ```
 GET /api/v1/encounters/4011549f-af3b-45a3-8137-abcdef123456/medical-questionnaire HTTP/1.1
 Host: api-staging.ezra.com
